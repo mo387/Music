@@ -1,0 +1,8 @@
+import { selectAll, selectPart } from "./select/index.js";
+import { insertSingle } from './insert/index.js'
+import { deletesingle } from './delete/index.js'
+import { update } from './update/index.js'
+let db = {
+  selectAll, selectPart, insertSingle, deletesingle, update
+}
+export default db
