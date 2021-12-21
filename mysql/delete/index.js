@@ -2,9 +2,10 @@ import pool from '../config.js'
 
 /**
  * @tableName {string} 表名 
- * @condition {Array} 删除条件
+ * @condition {Object} 删除条件
  * @method {string} and/or 
  * @returns promise对象
+ * // deletesingle('song',{name:'林俊杰'，})
  */
 export function deletesingle (tableName, condition, method) {
   return new Promise((resolve, reject) => {

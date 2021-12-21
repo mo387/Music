@@ -21,12 +21,13 @@ export function insertSingle (tableName, object) {
     str = str.substring(0, str.length - 1)
     sql = `INSERT INTO ${tableName} (${part}) VALUES (${str})`
     console.log(sql);
-    pool.query(sql, parms, (err, res) => {
-      if (err) {
-        reject(err)
-      } else {
-        resolve(res)
-      }
-    })
+    pool.query(sql, parms,
+      (err, res) => {
+        if (err) {
+          reject(err)
+        } else {
+          resolve(res)
+        }
+      })
   })
 }
