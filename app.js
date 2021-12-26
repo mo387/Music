@@ -1,7 +1,9 @@
 import Express from "express";
 import router from './api/index.js'
+import cookieParser from 'cookie-parser'
 const app = Express()
 app.use(Express.static('public'))
+app.use(cookieParser())
 app.all('*', (req, res, next) => {
   // google需要配置，否则报错cors error
   res.setHeader('Access-Control-Allow-Credentials', 'true')

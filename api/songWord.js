@@ -13,8 +13,6 @@ export default async function getSongWord (req, res) {
   let songID = req.query.songID;
   console.log(songID);
   let ret = await db.selectPart('song', ['songID', 'songWord'], { songID: songID })
-  console.log(ret.length > 0);
-  console.log(ret);
   let success = (ret.length > 0);
   if (success) {
     let songWord = subSongWord(ret[0].songWord);

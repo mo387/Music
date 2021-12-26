@@ -33,8 +33,9 @@ export default async function (req, res) {
 			songName: pro[i].songName,
 			singerName: pro[i].singer,
 			songTime: '4:00',
-			imgUrl: null,
-			musicUrl: null,
+			imgUrl: pro[i].songImage,
+			musicUrl: pro[i].songSrc,
+			songID: pro[i].songID
 		})
 	}
 	for (let i in musicData) {

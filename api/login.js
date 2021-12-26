@@ -14,15 +14,18 @@ import db from '../mysql/index.js'
  * @success {bool} 是否成功登录（成功返回 true，未成功返回false）
  * @reson {String}登陆失败原因
  */
+
 export default async function login (req, res) {
     //console.log(req.query.userIDThis);
     let userAccountThis = req.query.userAccountThis;
     let userPasswordThis = req.query.userPasswordThis;
-    let pro = await db.selectPart('user', ['userID', 'userPassword', 'userNickName'], { userAccount: userAccountThis, userPassword: userPasswordThis });
-    let success = pro[0].userID != null;
+    let pro = await db.selectPart('user', ['userID', 'userPassword', 'userNickName', 'userHeadUrl'], { userAccount: userAccountThis, userPassword: userPasswordThis });
+    //console.log(pro.userID==null);
+    let success = pro.length != 0;
     if (success) {
         let ID = pro[0].userID;
         let NickName = pro[0].userNickName;
+        let userHeadUrl = pro[0].userHeadUrl;
         let pro2 = await db.selectAll('songList', { userID: ID });
         //console.log(pro2[0].userID);
         // let len = pro2.length;
@@ -32,11 +35,13 @@ export default async function login (req, res) {
             listName[index] = pro2[index].listName;
         }
         // let listName=pro2.listName;
+        res.cookie('username', userAccountThis, { maxAge: 600000 })
         res.send({
             success,
             listName,
             NickName,
-            ID
+            ID,
+            userHeadUrl
         });
     }
     else {
@@ -44,7 +49,7 @@ export default async function login (req, res) {
         let reson;
         // console.log(pro3.userID);
 
-        if (pro3.userID == null) {
+        if (pro3.length == 0) {
             //console.log('in1');
             reson = 'Canot find the account!'
         }
@@ -60,4 +65,8 @@ export default async function login (req, res) {
 
         });
     }
+
+
+
+
 }
